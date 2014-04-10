@@ -42,7 +42,7 @@ Railsgoat::Application.configure do
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = { :address => "localhost", :port => 1025 }
   config.action_mailer.default_url_options = { :host => "localhost:3000" }
-
+=begin
   config.middleware.insert_before(
        Rack::Lock, Rack::LiveReload,
        :min_delay => 500,
@@ -51,4 +51,5 @@ Railsgoat::Application.configure do
        :host => 'railsgoat.dev',
        :ignore => [ %r{dont/modify\.html$} ]
   )
+=end  
 end
