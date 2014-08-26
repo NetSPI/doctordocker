@@ -28,7 +28,7 @@ Railsgoat::Application.configure do
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
   config.active_record.auto_explain_threshold_in_seconds = 0.5
-  
+
   # Tired of caching causing issues
   config.middleware.delete Rack::ETag
 
@@ -41,8 +41,7 @@ Railsgoat::Application.configure do
   # ActionMailer settings for email support
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = { :address => "localhost", :port => 1025 }
-  config.action_mailer.default_url_options = { :host => "localhost:3000" }
-=begin
+
   config.middleware.insert_before(
        Rack::Lock, Rack::LiveReload,
        :min_delay => 500,
@@ -50,6 +49,5 @@ Railsgoat::Application.configure do
        :port => 35727,
        :host => 'railsgoat.dev',
        :ignore => [ %r{dont/modify\.html$} ]
-  )
-=end  
+  ) 
 end

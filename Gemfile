@@ -1,8 +1,9 @@
 source 'https://rubygems.org'
 
 #don't upgrade
-gem 'rails', '3.2.11'
-gem 'rack', '1.4.0'
+gem 'rails', '3.2.19'
+
+ruby '2.1.2'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -11,7 +12,7 @@ gem 'rack', '1.4.0'
 gem 'mysql2'
 gem 'foreman'
 
-group :development do
+group :development, :mysql do
   gem 'brakeman'
   gem 'bundler-audit'
   gem 'guard-brakeman'
@@ -21,7 +22,7 @@ group :development do
   gem 'pry'
   gem 'rack-livereload'
   gem 'rb-fsevent'
-	gem 'travis-lint'
+  gem 'travis-lint'
   gem 'better_errors'
   gem 'binding_of_caller'
 end
@@ -30,12 +31,16 @@ gem 'gauntlt'
 
 gem 'simplecov', :require => false, :group => :test
 
-group :development, :test do
+group :development, :test, :mysql do
   gem 'launchy'
   gem 'capybara'
   gem 'database_cleaner'
   gem 'poltergeist'
-  gem 'rspec-rails'
+  gem 'rspec-rails', '2.14.2'
+end
+
+group :mysql do
+  gem 'mysql2'
 end
 
 # Gems used only for assets and not required
@@ -53,7 +58,7 @@ end
 gem 'jquery-rails'
 
 # To use ActiveModel has_secure_password
- gem 'bcrypt-ruby'
+ gem 'bcrypt'
 
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'

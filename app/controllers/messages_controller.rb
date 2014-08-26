@@ -2,6 +2,7 @@ class MessagesController < ApplicationController
 
   def index
     @messages = current_user.messages
+    @message = Message.new
   end
 
   def show
@@ -19,10 +20,6 @@ class MessagesController < ApplicationController
     end
   end
 
-  def new
-    @message = Message.new
-  end
-
   def create
     if Message.create(params[:message])
       respond_to do |format|
@@ -36,5 +33,4 @@ class MessagesController < ApplicationController
       end
     end
   end
-
 end

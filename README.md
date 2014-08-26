@@ -4,12 +4,10 @@ RailsGoat is a vulnerable version of the Ruby on Rails Framework. It includes vu
 
 ## Getting Started
 
-Requirements: **Ruby 1.9.3**
-
 To begin, install the Ruby Version Manager (RVM):
 
 ```
-$ curl -L https://get.rvm.io | bash -s stable --autolibs=3 --ruby=1.9.3
+$ curl -L https://get.rvm.io | bash -s stable --autolibs=3 --ruby=2.1.2
 ```
 
 After installing the package, clone this repo:
@@ -18,22 +16,7 @@ After installing the package, clone this repo:
 $ git clone git@github.com:OWASP/railsgoat.git
 ```
 
-Navigate into the directory and accept the notice by typing `yes`:
-```
-****************************************************************************************************
-* NOTICE                                                                                           *
-****************************************************************************************************
-* RVM has encountered a new or modified .rvmrc file in the current directory, this is a shell      *
-* script and therefore may contain any shell commands.                                             *
-*                                                                                                  *
-* Examine the contents of this file carefully to be sure the contents are safe before trusting it! *
-* Do you wish to trust '/path/to/railsgoat/.rvmrc'?                                                *
-* Choose v[view] below to view the contents                                                        *
-****************************************************************************************************
-y[es], n[o], v[iew], c[cancel]>
-```
-
-Install the project dependencies:
+Navigate into the directory and install the dependencies:
 
 ```
 $ bundle install
@@ -51,7 +34,7 @@ Initialize the database:
 $ rake db:setup
 ```
 
-Start the WEBrick HTTP Server:
+Start the Thin web server:
 
 ```
 $ rails server
@@ -68,6 +51,22 @@ $ rake training
 ```
 
 NOTE: As vulnerabilities are fixed in the application, these specs will not change to `passing`, but to `pending`.
+
+
+## MySQL Environment
+
+By default in development mode Railsgoat runs with a SQLite database. There is an environment defined to use MySQL. For some of the SQL injection vulnerabilities to work you have to run the app with MySQL as the database. The following steps will setup and run Railsgoat to use MySQL. *MySQL must be installed and running before running these steps*
+
+```
+#Create the MySQL database
+RAILS_ENV=mysql rake db:create
+
+#Run the migrations against the database
+RAILS_ENV=mysql rake db:migrate
+
+#Boot Rails using MySQl
+RAILS_ENV=mysql rails s
+```
 
 ## Processing Email
 
@@ -100,7 +99,7 @@ Conversion to the OWASP Top Ten 2013 completed in November, 2013.
 
 The MIT License (MIT)
 
-Copyright (c) 2013 The Open Web Application Security Project
+Copyright (c) 2013-2014 The Open Web Application Security Project
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
