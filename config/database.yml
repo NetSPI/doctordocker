@@ -9,7 +9,7 @@ mysql:
   database: development_railsgoat
   pool: 5
   timeout: 5000
-  host: <%= ENV['DOCKERDB_ENV_MYSQL_DB'] %>
+  host: <%= ENV['DOCKERDB_PORT_3306_TCP_'] %>
   username: root
   password:
 
