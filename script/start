@@ -1,0 +1,4 @@
+#!/bin/bash
+
+rake db:setup
+rails server
