@@ -1,5 +1,5 @@
-FROM mattdm/fedora-small:f20
-MAINTAINER Tom Prince <tom.prince@clusterhq.com>
+FROM fedora
+MAINTAINER pjcoole
 
 ADD GPG-KEY-elasticsearch /etc/pki/rpm-gpg/
 ADD logstash.repo /etc/yum.repos.d/
