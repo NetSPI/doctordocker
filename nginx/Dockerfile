@@ -17,7 +17,7 @@ ADD nginx.conf /etc/nginx/nginx.conf
 
 RUN nginx -t -c /etc/nginx/nginx.conf
 
-CMD ["nginx"]
+CMD nginx -c /etc/nginx/nginx.conf
 # Expose ports.
 EXPOSE 80
 EXPOSE 443
