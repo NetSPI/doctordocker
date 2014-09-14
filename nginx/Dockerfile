@@ -4,6 +4,8 @@ MAINTAINER= pjcoole
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
 		fontconfig-config \
+		wget \
+		build-essential \
 		fonts-dejavu-core \
 		geoip-database \
 		init-system-helpers \
@@ -50,6 +52,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     git-core \
 	  && rm -rf /var/lib/apt/lists/*
+
+RUN git config --global http.sslVerify false
 
 RUN git clone https://github.com/SpiderLabs/ModSecurity.git mod_security && cd mod_security ./autogen.sh && ./configure --enable-standalone-module && make \
 
