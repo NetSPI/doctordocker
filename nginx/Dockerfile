@@ -1,33 +1,25 @@
-FROM debian:jessie
+FROM google/debian:wheezy
 
-MAINTAINER= pjcoole
+MAINTAINER pjcoole
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get update -y && apt-get install -y --no-install-recommends \
 		fontconfig-config \
 		wget \
-		build-essential \
-		fonts-dejavu-core \
+		libpcre3-dev \
+		libxml2-dev \
 		geoip-database \
-		init-system-helpers \
-		libarchive-extract-perl \
 		libexpat1 \
 		libfontconfig1 \
 		libfreetype6 \
 		libgcrypt11 \
-		libgd3 \
 		libgdbm3 \
 		libgeoip1 \
 		libgpg-error0 \
 		libjbig0 \
 		libjpeg8 \
-		liblog-message-perl \
-		liblog-message-simple-perl \
 		libmodule-pluggable-perl \
 		libpng12-0 \
-		libpod-latex-perl \
 		libssl1.0.0 \
-		libterm-ui-perl \
-		libtext-soundex-perl \
 		libtiff5 \
 		libvpx1 \
 		libx11-6 \
@@ -40,7 +32,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 		libxslt1.1 \
 		perl \
 		perl-modules \
-		rename \
 		sgml-base \
 		ucf \
 		xml-core \
@@ -50,12 +41,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libz-dev \
     libssl-dev \
     build-essential \
+		automake \
     git-core \
 	  && rm -rf /var/lib/apt/lists/*
 
 RUN git config --global http.sslVerify false
 
-RUN git clone https://github.com/SpiderLabs/ModSecurity.git mod_security && cd mod_security ./autogen.sh && ./configure --enable-standalone-module && make \
+RUN git clone https://github.com/SpiderLabs/ModSecurity.git mod_security && cd mod_security && ./autogen.sh && ./configure --enable-standalone-module && make \
 
     && wget http://www.nginx.org/download/nginx-1.7.4.tar.gz && tar -xvpzf nginix-1.7.4.tar.gz && ./configure --add-module=../mod_security/nginx/modsecurity && make && make install
 
