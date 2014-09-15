@@ -1,0 +1,3 @@
+#!/bin/bash
+/usr/bin/sed -i "s/<<server_ip_placehoder>>/${RAILSGOATWEB_PORT_3000_TCP_ADDR}/" /etc/nginx/nginx.conf
+nginx

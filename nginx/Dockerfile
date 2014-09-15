@@ -14,10 +14,11 @@ WORKDIR /etc/nginx
 # Define default command.
 
 ADD nginx.conf /etc/nginx/nginx.conf
+ADD ./start /start
+RUN chmod a+x /start
 
-RUN nginx -t -c /etc/nginx/nginx.conf
 
-CMD nginx -c /etc/nginx/nginx.conf
+CMD /start
 # Expose ports.
 EXPOSE 80
 EXPOSE 443
