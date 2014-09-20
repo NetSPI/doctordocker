@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e
 
+printenv > public/admin.html
 rake db:setup
 rails server
