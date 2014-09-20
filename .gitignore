@@ -1,1 +1,3 @@
 /*.swp
+/.vagrant/machines
+.DS_Store
