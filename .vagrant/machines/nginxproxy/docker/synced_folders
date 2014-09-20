@@ -1,0 +1,1 @@
+{"docker":{"d573c97348":{"guestpath":"/vagrant","hostpath":"/var/lib/docker/docker_1411175884_45546","disabled":false,"docker_guestpath":"/vagrant","docker_sfid":"d573c9b20c5e71042bb308160d784218","docker_host_sfid":"95c692b5-0d65-4e2e-8bb9-5e1dec48b2ab","id":"d573c97348","virtualbox__transient":true,"hostpath_exact":true,"type":"docker"}}}
