@@ -1,27 +1,20 @@
+
+
 VAGRANTFILE_API_VERSION = "2"
 ENV['VAGRANT_DEFAULT_PROVIDER'] = 'docker'
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.define "nginx" do |nginx|
-    nginx.vm.provider "docker" do |d|
-      d.image = "pjcoole/nginx"
-      d.name = "nginx"
+  
+  config.vm.define "nginxproxy" do |nginxproxy|
+    nginxproxy.vm.provider "docker" do |d|
+      d.image = "pjcoole/nginx:auto"
+      d.name = "nginxproxy"
       d.ports = ["8080:80"]
-      d.link("web:railsgoatweb")
+      d.volumes = ["/var/run/docker.sock:/tmp/docker.sock"]
+      d.create_args = ["-t"]
       d.vagrant_vagrantfile = "./Vagrantfile.proxy"
     end
   end
-
-config.vm.define "nginxproxy" do |nginxproxy|
-  nginxproxy.vm.provider "docker" do |d|
-    d.image = "pjcoole/nginx:auto"
-    d.name = "nginxproxy"
-    d.ports = ["8080:80"]
-    d.volumes = ["/var/run/docker.sock:/tmp/docker.sock"]
-    d.create_args = ["-t"]
-    d.vagrant_vagrantfile = "./Vagrantfile.proxy"
-  end
-end
 
   config.vm.define "db" do |db|
     db.vm.provider "docker" do |d|
@@ -39,7 +32,7 @@ end
       d.name = "web1"
       d.link("db:dockerdb")
       d.expose = [3000]
-      d.env = {VIRTUAL_HOST: "railsdemo.localhost"}
+      d.env = {VIRTUAL_HOST: "railsgoat.dev"}
       d.vagrant_vagrantfile = "./Vagrantfile.proxy"
     end
   end
@@ -47,10 +40,10 @@ end
   config.vm.define "web2" do |web2|
     web2.vm.provider "docker" do |d|
       d.image = "pjcoole/railsgoat"
-      d.name = "web2f"
+      d.name = "web2"
       d.link("db:dockerdb")
       d.expose = [3000]
-      d.env = {VIRTUAL_HOST: "railsdemo.localhost"}
+      d.env = {VIRTUAL_HOST: "railsgoat.dev"}
       d.vagrant_vagrantfile = "./Vagrantfile.proxy"
     end
   end
