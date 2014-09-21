@@ -5,14 +5,14 @@ Before beginning you'll need Vagrant and Virtualbox installed.
 Change into DoctorDocker directory, use this command to start via Vagrant:
 
 ```
-$ vagrant up --provider=docker --no-parallel
+$ vagrant up --no-parallel
 ```
 
 You can start individual docker contaniners with the folloing:
 
 ```
-$ vagrant up db --provider=docker
-$ vagrant up web --provider=docker
+$ vagrant up db
+$ vagrant up web
 ```
 
 To ssh into the docker proxy VM:
