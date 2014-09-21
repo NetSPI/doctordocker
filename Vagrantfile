@@ -14,7 +14,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
 config.vm.define "nginxproxy" do |nginxproxy|
   nginxproxy.vm.provider "docker" do |d|
-    d.image = "jwilder/nginx-proxy"
+    d.image = "pjcoole/nginx:auto"
     d.name = "nginxproxy"
     d.ports = ["8080:80"]
     d.volumes = ["/var/run/docker.sock:/tmp/docker.sock"]
