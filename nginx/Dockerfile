@@ -1,24 +1,29 @@
-FROM dockerfile/ubuntu
+FROM ubuntu:14.04
+MAINTAINER Jason Wilder jwilder@litl.com
+
 # Install Nginx.
-RUN \
-add-apt-repository -y ppa:nginx/stable && \
-apt-get update && \
-apt-get install -y nginx-extras && \
-rm -rf /var/lib/apt/lists/* && \
-echo "\ndaemon off;" >> /etc/nginx/nginx.conf && \
-chown -R www-data:www-data /var/lib/nginx
-# Define mountable directories.
-VOLUME ["/etc/nginx/sites-enabled", "/etc/nginx/certs", "/etc/nginx/conf.d", "/var/log/nginx"]
-# Define working directory.
-WORKDIR /etc/nginx
-# Define default command.
+RUN echo "deb http://ppa.launchpad.net/nginx/stable/ubuntu trusty main" > /etc/apt/sources.list.d/nginx-stable-trusty.list
+RUN echo "deb-src http://ppa.launchpad.net/nginx/stable/ubuntu trusty main" >> /etc/apt/sources.list.d/nginx-stable-trusty.list
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys C300EE8C
+RUN apt-get update
+RUN apt-get install -y  wget nginx-naxsi
 
-ADD nginx.conf /etc/nginx/nginx.conf
-ADD ./start /start
-RUN chmod a+x /start
+RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
+#fix for long server names
+RUN sed -i 's/# server_names_hash_bucket/server_names_hash_bucket/g' /etc/nginx/nginx.conf
 
-CMD /start
-# Expose ports.
+RUN wget -P /usr/local/bin https://godist.herokuapp.com/projects/ddollar/forego/releases/current/linux-amd64/forego
+RUN chmod u+x /usr/local/bin/forego
+
+RUN wget https://github.com/jwilder/docker-gen/releases/download/0.3.3/docker-gen-linux-amd64-0.3.3.tar.gz
+RUN tar -C /usr/local/bin -xvzf docker-gen-linux-amd64-0.3.3.tar.gz
+
+RUN mkdir /app
+WORKDIR /app
+ADD . /app
+
 EXPOSE 80
-EXPOSE 443
+ENV DOCKER_HOST unix:///tmp/docker.sock
+
+CMD ["forego", "start", "-r"]
