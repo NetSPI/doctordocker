@@ -4,7 +4,7 @@ VAGRANTFILE_API_VERSION = "2"
 ENV['VAGRANT_DEFAULT_PROVIDER'] = 'docker'
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  
+
   config.vm.define "nginxproxy" do |nginxproxy|
     nginxproxy.vm.provider "docker" do |d|
       d.image = "pjcoole/nginx:auto"
