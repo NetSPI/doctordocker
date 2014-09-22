@@ -1,18 +1,13 @@
-FROM fedora
-MAINTAINER pjcoole
+FROM stackbrew/debian:jessie
+MAINTAINER Arcus "http://arcus.io"
+RUN apt-get update
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y openjdk-7-jre wget
+ENV JAVA_HOME /usr/lib/jvm/java-6-openjdk-amd64
+RUN (cd /tmp && wget https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.3.2.tar.gz -O pkg.tar.gz && tar zxf pkg.tar.gz && mv elasticsearch-* /opt/elasticsearch)
+RUN rm -rf /tmp/*
 
-ADD GPG-KEY-elasticsearch /etc/pki/rpm-gpg/
-ADD elasticsearch.repo /etc/yum.repos.d/
-RUN ["rpm", "--import", "/etc/pki/rpm-gpg/GPG-KEY-elasticsearch"]
-# https://github.com/elasticsearch/elasticsearch/pull/7598
-RUN ["yum", "install", "-y", "jre >= 1.6.0", "/usr/bin/which"]
-RUN ["yum", "install", "-y", "elasticsearch"]
-
-VOLUME /var/lib/elasticsearch/
-USER elasticsearch
-CMD  source /etc/sysconfig/elasticsearch; /usr/share/elasticsearch/bin/elasticsearch -p /var/run/elasticsearch/elasticsearch.pid -Des.default.config=$CONF_FILE -Des.default.path.home=$ES_HOME -Des.default.path.logs=$LOG_DIR -Des.default.path.data=$DATA_DIR -Des.default.path.work=$WORK_DIR -Des.default.path.conf=$CONF_DIR
-
-# HTTP interface
 EXPOSE 9200
-# Cluster interface
 EXPOSE 9300
+VOLUME /opt/elasticsearch/data
+ENTRYPOINT ["/opt/elasticsearch/bin/elasticsearch"]
+CMD []

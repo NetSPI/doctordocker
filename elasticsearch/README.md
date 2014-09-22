@@ -1,5 +1,13 @@
-Elasticsearch 1.3.x image for ClusterHQ's flocker tutorial.
+# ElasticSearch
 
-This image exposes the HTTP interface on 9200 and the cluster interface on 9300.
+ElasticSearch 1.3.2
 
-The data is stored in /var/lib/elasticsearch/ which is exposed as a volume.
+Uses `elasticsearch` as the entrypoint with default options of `-f`
+
+* `docker build -t elasticsearch .`
+* `docker run elasticsearch`
+
+Ports
+
+* 9200
+* 9300

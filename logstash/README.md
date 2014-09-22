@@ -1,5 +1,16 @@
-Logstash 1.4.x image for ClusterHQ's flocker tutorial.
+# Logstash
 
-This container expects to be linked to an elasticsearch (alias es) container (such as clusterhq/elasticsearch) that exposes port 9200.
+Logstash 1.1.13
 
-It listens on port TCP 5000, for lines of JSON.
+
+* `docker build -t logstash .`
+* `docker run logstash`
+ or with an external elasticsearch
+* `docker run -e ES_HOST=1.2.3.4 -e ES_PORT=9300 logstash`
+
+Ports
+
+* 514 (syslog)
+* 9200 (embedded elasticsearch if no external specified)
+* 9292 (logstash ui)
+* 9300 (embedded elasticsearch if no external specified)
