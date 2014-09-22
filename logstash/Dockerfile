@@ -1,5 +1,5 @@
 FROM base
-MAINTAINER Arcus "http://arcus.io"
+MAINTAINER pjcoole
 RUN echo "deb http://archive.ubuntu.com/ubuntu quantal main universe multiverse" > /etc/apt/sources.list
 RUN apt-get update
 RUN apt-get install -y wget openjdk-6-jre

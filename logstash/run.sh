@@ -1,7 +1,7 @@
 #!/bin/bash
 CFG=${CFG:-}
-ES_HOST=${ES_HOST:-127.0.0.1}
-ES_PORT=${ES_PORT:-9300}
+ES_HOST=${ES_PORT_9300_TCP_ADDR:-127.0.0.1}
+ES_PORT=${ES_PORT_9300_TCP_PORT:-9300}
 EMBEDDED="false"
 
 if [ "$ES_HOST" = "127.0.0.1" ] ; then
