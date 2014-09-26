@@ -46,4 +46,21 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
   end
 
+  config.vm.define "es" do |es|
+    es.vm.provider "docker" do |d|
+      d.image = "pjcoole/elasticsearch"
+      d.name = "esearch"
+      d.vagrant_vagrantfile = "./Vagrantfile.proxy"
+    end
+  end
+
+  config.vm.define "logstash" do |logstash|
+    logstash.vm.provider "docker" do |d|
+      d.image = "pblittle/docker-logstash"
+      d.name = "logstash"
+      d.env = {ES_CONTAINER: "esearch", VIRTUAL_HOST: "kibana.dev", VIRTUAL_PORT: "9292"}
+      d.vagrant_vagrantfile = "./Vagrantfile.proxy"
+    end
+  end
+
 end
