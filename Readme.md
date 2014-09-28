@@ -32,6 +32,6 @@ To enter into a docker container with docker-enter run the following command fro
 This will install nsenter and docker-enter onto the proxy box
 
 ```
-$ curl https://gist.githubusercontent.com/lox/d210a74d3c2f317786ab/raw/install-nsenter.sh | bash
+$ curl https://gist.githubusercontent.com/pjcoole/45a7202c7f91335e8b13/raw/e1440bf4cf809f5d99fe516a96ac75a84d53967c/install-nsenter.sh | bash
 ```
 
