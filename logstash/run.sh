@@ -1,12 +1,8 @@
 #!/bin/bash
 CFG=${CFG:-}
-ES_HOST=${ES_PORT_9300_TCP_ADDR:-127.0.0.1}
-ES_PORT=${ES_PORT_9300_TCP_PORT:-9300}
+ES_HOST=${ES_PORT_9300_TCP_ADDR}
+ES_PORT=${ES_PORT_9300_TCP_PORT}
 EMBEDDED="false"
-
-if [ "$ES_HOST" = "127.0.0.1" ] ; then
-    EMBEDDED="true"
-fi
 
 if [ "$CFG" != "" ]; then
     wget $CFG -O /opt/logstash.conf --no-check-certificate
@@ -19,7 +15,7 @@ input {
   }
 }
 output {
-  stdout { debug => true debug_format => "json"}
+  stdout { codec => rubydebug }
 EOF
     if [ "$EMBEDDED" = "true" ]; then
         cat << EOF >> /opt/logstash.conf
@@ -34,4 +30,4 @@ EOF
    fi
 fi
 
-java -jar /opt/logstash.jar agent -f /opt/logstash.conf -- web --backend elasticsearch://$ES_HOST:$ES_PORT/
+/opt/logstash/bin/logstash agent -f /opt/logstash.conf

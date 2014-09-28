@@ -1,11 +1,13 @@
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = "hashicorp/precise64"
+  config.vm.box = "phusion/ubuntu-14.04-amd64"
   config.vm.hostname = "railsgoat.dev"
   config.vm.provision "docker"
   config.vm.provision "shell", inline:
    "ps aux | grep 'sshd:' | awk '{print $2}' | xargs kill"
 
   config.vm.network :private_network, ip: "33.33.33.60"
+  config.ssh.username = 'root'
+  # config.ssh.private_key_path = 'phusion.key'
 end
