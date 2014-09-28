@@ -28,4 +28,10 @@ $ vagrant global-status
 
 $ vagrant ssh [id of vm]
 ```
+To enter into a docker container with docker-enter run the following command from inside the vagrant proxy box
+This will install nsenter and docker-enter onto the proxy box
+
+```
+$ curl https://gist.githubusercontent.com/lox/d210a74d3c2f317786ab/raw/install-nsenter.sh | bash
+```
 
