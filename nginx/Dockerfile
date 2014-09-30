@@ -1,12 +1,13 @@
-FROM ubuntu:14.04
-MAINTAINER Jason Wilder jwilder@litl.com
+FROM ubuntu
+MAINTAINER pjcoole
 
 # Install Nginx.
-RUN echo "deb http://ppa.launchpad.net/nginx/stable/ubuntu trusty main" > /etc/apt/sources.list.d/nginx-stable-trusty.list
-RUN echo "deb-src http://ppa.launchpad.net/nginx/stable/ubuntu trusty main" >> /etc/apt/sources.list.d/nginx-stable-trusty.list
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys C300EE8C
-RUN apt-get update
-RUN apt-get install -y  wget nginx-naxsi
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys C300EE8C && \
+	apt-get update && \
+	apt-get install -y wget nginx-common nginx-naxsi && \
+	apt-get clean && \
+	rm -rf /var/lib/apt/lists/*
+	rm -rf /tmp/*
 
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
@@ -25,5 +26,8 @@ ADD . /app
 
 EXPOSE 80
 ENV DOCKER_HOST unix:///tmp/docker.sock
+
+RUN echo *.* @@33.33.33.60:514 >> /etc/rsyslog.d/50-default.conf && \
+	rsyslogd
 
 CMD ["forego", "start", "-r"]

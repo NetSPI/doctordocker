@@ -13,7 +13,13 @@ input {
     type => syslog
     port => 514
   }
+  lumberjack {
+    port => 5043
+    ssl_certificate => "/opt/certs/logstash-forwarder.crt"
+    ssl_key => "/opt/certs/logstash-forwarder.key"
+  }
 }
+
 output {
   stdout { codec => rubydebug }
 EOF

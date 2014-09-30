@@ -5,7 +5,7 @@ Before beginning you'll need Vagrant and Virtualbox installed.
 Add the following entry in your /etc/hosts file:
 
 ```
-33.33.33.60	railsgoat.dev
+33.33.33.60	railsgoat.dev kibana.dev
 ```
 
 Change into DoctorDocker directory, use this command to start via Vagrant:

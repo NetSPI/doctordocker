@@ -58,10 +58,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.define "logstash" do |logstash|
     logstash.vm.provider "docker" do |d|
-      d.image = "pjcoole/logstash"
+      d.image = "digitalwonderland/logstash"
       d.name = "logstash"
-      d.expose = [514]
-      d.link("es:es")
+      d.expose = [514, 5043]
+      d.ports = ["514:514", "5043:5043"]
+      d.link("es:elasticsearch")
       d.vagrant_vagrantfile = "./Vagrantfile.proxy"
     end
   end
@@ -71,6 +72,18 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
      d.image = "pjcoole/kibana"
      d.name = "kibana"
      d.env = {VIRTUAL_HOST: "kibana.dev", VIRTUAL_PORT: "80", HOST_IP_ADDR: "kibana.dev"}
+     d.vagrant_vagrantfile = "./Vagrantfile.proxy"
+   end
+  end
+
+  config.vm.define "lsForwarder" do |lsForwarder|
+   lsForwarder.vm.provider "docker" do |d|
+     d.image = "digitalwonderland/logstash-forwarder"
+     d.name = "lsForwarder"
+     d.volumes = ["/var/lib/docker:/var/lib/docker:ro", "/var/run/docker.sock:/var/run/docker.sock", ]
+     d.env = {LOGSTASH_SERVER: "33.33.33.60:5043"}
+     d.link("logstash:logstash")
+     d.create_args = ["--volumes-from=logstash"]
      d.vagrant_vagrantfile = "./Vagrantfile.proxy"
    end
   end
