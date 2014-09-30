@@ -7,6 +7,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision "docker"
   config.vm.provision "shell", inline:
    "ps aux | grep 'sshd:' | awk '{print $2}' | xargs kill"
+  config.vm.provision "shell", inline: "curl https://gist.githubusercontent.com/pjcoole/45a7202c7f91335e8b13/raw/e1440bf4cf809f5d99fe516a96ac75a84d53967c/install-nsenter.sh | bash"
 
   config.vm.network :private_network, ip: "33.33.33.60"
   config.ssh.username = 'root'
