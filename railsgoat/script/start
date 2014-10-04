@@ -1,8 +1,0 @@
-#!/bin/bash
-set -e
-
-echo '<html><pre>' > public/admin.html
-printenv >> public/admin.html
-echo '</pre></html>' >> public/admin.html
-rake db:setup
-rails server
