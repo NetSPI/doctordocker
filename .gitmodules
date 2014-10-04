@@ -1,0 +1,3 @@
+[submodule "railsgoat"]
+	path = railsgoat
+	url = git@github.com:pjcoole/railsgoat.git
