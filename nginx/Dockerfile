@@ -20,6 +20,8 @@ RUN chmod u+x /usr/local/bin/forego
 RUN wget https://github.com/jwilder/docker-gen/releases/download/0.3.3/docker-gen-linux-amd64-0.3.3.tar.gz
 RUN tar -C /usr/local/bin -xvzf docker-gen-linux-amd64-0.3.3.tar.gz
 
+ADD /etc/nginx.conf /etc/nginx/nginx.conf
+
 RUN mkdir /app
 WORKDIR /app
 ADD . /app
