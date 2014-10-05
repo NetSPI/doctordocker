@@ -40,18 +40,18 @@ $ curl https://gist.githubusercontent.com/pjcoole/45a7202c7f91335e8b13/raw/e1440
 
 Mysql DB Container
 
-'''
-docker run -d -p ::3306 --name db \
+```
+$ docker run -d -p ::3306 --name db \
 -e MYSQL_USER=root \
 -e MYSQL_PASS=docker \
 -e MYSQL_ROOT_PASSWORD=docker \
 mysql
-'''
+```
 
 
 Railsgoat Container
 
-'''
-docker run -d -P --name web \
+```
+$ docker run -d -P --name web \
 --link db:dockerdb pjcoole/railsgoat
-'''
+```
