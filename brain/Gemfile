@@ -1,0 +1,9 @@
+source 'https://rubygems.org'
+
+gem 'bundler-audit', :git => 'git://github.com/mccabe615/bundler-audit.git'
+gem 'httparty'
+gem 'docker-api', :require => 'docker'
+
+
+#test for bundle-audit
+#gem 'rails', '4.0.0'

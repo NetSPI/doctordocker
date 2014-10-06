@@ -1,0 +1,31 @@
+GIT
+  remote: git://github.com/mccabe615/bundler-audit.git
+  revision: 9f116f2e5c2687abb536d3a2caa1db7594205db7
+  specs:
+    bundler-audit (0.3.1)
+      bundler (~> 1.2)
+      thor (~> 0.18)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    archive-tar-minitar (0.5.2)
+    docker-api (1.13.6)
+      archive-tar-minitar
+      excon (>= 0.38.0)
+      json
+    excon (0.39.6)
+    httparty (0.13.1)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
+    json (1.8.1)
+    multi_xml (0.5.5)
+    thor (0.19.1)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  bundler-audit!
+  docker-api
+  httparty
