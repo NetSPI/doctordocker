@@ -1,3 +1,5 @@
+
+![doctordocker](http://i.imgur.com/QTSlaVJ.png)
 ##Getting Started
 
 Before beginning you'll need Vagrant and Virtualbox installed.
