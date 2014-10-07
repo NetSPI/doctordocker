@@ -2,9 +2,10 @@ module DockerControl
 	Docker.url = 'tcp://192.168.59.103:2375'
 
 	def swap
-		containers = old_containers
+		containers = current_containers
+		image  = create_image
 
-		cont = Docker::Container.create('Image' => 'pjcoole/railsgoat')
+		cont = create_container(image.info["id"])
 		cont.start("Links" => ["db:dockerdb"], 'PublishAllPorts' => true)
 
 		unless containers.nil?
@@ -14,7 +15,15 @@ module DockerControl
 		end
 	end
 
-	def old_containers
+	def current_containers
 		Docker::Container.all.select {|x|  x.info["Image"] == "pjcoole/railsgoat:latest"}
+	end
+
+	def create_image
+		Docker::Image.create("fromImage" => "pjcoole/railsgoat")
+	end
+
+	def create_container
+		Docker::Container.create('Image' => 'pjcoole/railsgoat')
 	end
 end
