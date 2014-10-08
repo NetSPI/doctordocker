@@ -23,7 +23,7 @@ module DockerControl
 		Docker::Image.create("fromImage" => "pjcoole/railsgoat")
 	end
 
-	def create_container
-		Docker::Container.create('Image' => 'pjcoole/railsgoat')
+	def create_container(id)
+		Docker::Container.create("Image" => "#{id}")
 	end
 end
