@@ -29,18 +29,20 @@ module DoctorDocker
 
 		def run
 			if check
-				puts "Starting new build..."
+				
 				@current_build = current_build
 				puts "Current build:" + @current_build
 
+				puts "Starting new build..."
 				build_result = rebuild
-
+				timer = 0
 				if build_result.chomp == "OK"
 					puts "Build result: " + build_result
-
+					puts "Waiting for build to complete.."
 					while  old_build?(@current_build)
-						puts 'Sleeping for 60 seconds.. '
-						sleep 60
+						sleep 1
+						print "\rElapsed time: #{timer.to_s} seconds"
+						timer += 1
 					end
 					swap
 					puts "Succussfully swapped"
