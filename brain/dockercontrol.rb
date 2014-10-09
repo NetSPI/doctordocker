@@ -2,6 +2,7 @@ module DockerControl
 	Docker.url = 'tcp://192.168.59.103:2375'
 
 	def swap
+		puts
 		puts 'Starting container swap'
 		#get list of current containers
 		containers = current_containers
@@ -24,6 +25,7 @@ module DockerControl
 		#clean up old containers
 		remove_containers(containers)
 
+		puts "Succussfully swapped"
 	end
 
 	private
