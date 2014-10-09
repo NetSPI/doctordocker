@@ -31,7 +31,7 @@ module DockerControl
 	private
 
 	def start_container(container)
-		container.start("Links" => ["db:dockerdb"], 'PublishAllPorts' => true)
+		container.start("Links" => ["db:dockerdb"], 'PublishAllPorts' => true, 'Name' => 'Railsgoat')
 	end
 
 	def current_containers
