@@ -20,31 +20,6 @@ module DoctorDocker
 	WORKING_DIR='./tmp'
 	GEMFILE_PATH="/usr/src/app/Gemfile.lock"
 
-		def copy_file(container, file, outdir)
-			string = ''
-			container.copy(file) {|chunk| string.concat(chunk)}
-			unpack_tar(outdir, string)
-		end
-
-		def unpack_tar(directory, string)
-		  FileUtils.mkdir_p(directory) if !File.exist?(directory)
-		  stringio = StringIO.new(string)
-		  input = Archive::Tar::Minitar::Input.new(stringio)
-		  input.each {|entry| input.extract_entry(directory, entry)}
-		end
-
-		def check(directory)
-			copy_file(current_containers.first, GEMFILE_PATH, WORKING_DIR)
-			`cd #{WORKING_DIR} && bundle-audit` #--ignore_sources`
-			if $?.exitstatus == 1
-				puts 'Vulnerabilities in Gems!'
-				true
-			else
-				puts 'No Vulnerabilities in Gems!'
-				false
-			end
-		end
-
 		def run
 			if check(WORKING_DIR)
 				
@@ -70,6 +45,33 @@ module DoctorDocker
 				end
 			else
 				puts 'DoctorDocker exiting..'
+			end
+		end
+
+		private 
+		
+		def copy_file(container, file, outdir)
+			string = ''
+			container.copy(file) {|chunk| string.concat(chunk)}
+			unpack_tar(outdir, string)
+		end
+
+		def unpack_tar(directory, string)
+		  FileUtils.mkdir_p(directory) if !File.exist?(directory)
+		  stringio = StringIO.new(string)
+		  input = Archive::Tar::Minitar::Input.new(stringio)
+		  input.each {|entry| input.extract_entry(directory, entry)}
+		end
+
+		def check(directory)
+			copy_file(current_containers.first, GEMFILE_PATH, WORKING_DIR)
+			`cd #{WORKING_DIR} && bundle-audit` #--ignore_sources`
+			if $?.exitstatus == 1
+				puts 'Vulnerabilities in Gems!'
+				true
+			else
+				puts 'No Vulnerabilities in Gems!'
+				false
 			end
 		end
 	end
