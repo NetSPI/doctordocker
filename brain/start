@@ -1,0 +1,2 @@
+bundle update
+./brain.rb
