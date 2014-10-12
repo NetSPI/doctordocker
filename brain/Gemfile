@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'bundler-audit', :git => 'git://github.com/mccabe615/bundler-audit.git'
+gem 'bundler-audit', :git => 'https://github.com/mccabe615/bundler-audit.git'
 gem 'httparty'
 gem 'docker-api', :require => 'docker'
 

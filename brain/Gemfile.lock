@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/mccabe615/bundler-audit.git
+  remote: https://github.com/mccabe615/bundler-audit.git
   revision: 9f116f2e5c2687abb536d3a2caa1db7594205db7
   specs:
     bundler-audit (0.3.1)
@@ -14,7 +14,7 @@ GEM
       archive-tar-minitar
       excon (>= 0.38.0)
       json
-    excon (0.39.6)
+    excon (0.40.0)
     httparty (0.13.1)
       json (~> 1.8)
       multi_xml (>= 0.5.2)

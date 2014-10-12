@@ -1,5 +1,5 @@
 module DockerControl
-	Docker.url = 'tcp://192.168.59.103:2375'
+	Docker.url = 'unix:///tmp/docker.sock'
 
 	def swap
 		puts
