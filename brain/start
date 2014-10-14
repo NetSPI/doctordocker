@@ -1,2 +1,4 @@
-bundle update
+export PATH=$PATH:/usr/local/lib/ruby/gems/2.1.0/bundler/gems/bundler-audit-9f116f2e5c26/bin
+bundle install
+bundle-audit update
 ./brain.rb

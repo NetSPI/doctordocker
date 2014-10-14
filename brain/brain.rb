@@ -22,7 +22,7 @@ module DoctorDocker
 
 		def run
 			if check(WORKING_DIR)
-				
+
 				@current_build = current_build
 				puts "Current build:" + @current_build
 
@@ -48,15 +48,17 @@ module DoctorDocker
 			end
 		end
 
-		private 
-		
+		private
+
 		def copy_file(container, file, outdir)
 			string = ''
+			puts 'copying Gemfile.lock from app container..'
 			container.copy(file) {|chunk| string.concat(chunk)}
 			unpack_tar(outdir, string)
 		end
 
 		def unpack_tar(directory, string)
+			puts 'unpacking Gemfile.lock..'
 		  FileUtils.mkdir_p(directory) if !File.exist?(directory)
 		  stringio = StringIO.new(string)
 		  input = Archive::Tar::Minitar::Input.new(stringio)
@@ -64,8 +66,9 @@ module DoctorDocker
 		end
 
 		def check(directory)
+			puts 'Starting vunlerability check..'
 			copy_file(current_containers.first, GEMFILE_PATH, WORKING_DIR)
-			`cd #{WORKING_DIR} && bundle-audit` #--ignore_sources`
+			`cd #{WORKING_DIR} && bundle-audit` #--json`
 			if $?.exitstatus == 1
 				puts 'Vulnerabilities in Gems!'
 				true

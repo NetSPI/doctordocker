@@ -31,7 +31,7 @@ module DockerControl
 	private
 
 	def start_container(container)
-		container.start("Links" => ["db:dockerdb"], 'PublishAllPorts' => true, 'Name' => 'Railsgoat')
+		container.start("Links" => ["db:dockerdb"], 'PublishAllPorts' => false, 'Name' => 'Railsgoat')
 	end
 
 	def current_containers
@@ -43,7 +43,7 @@ module DockerControl
 	end
 
 	def create_container(image)
-		Docker::Container.create("Image" => "#{image.info["id"]}")
+		Docker::Container.create("Env" => "VIRTUAL_HOST=railsgoat.dev", "Image" => "#{image.info["id"]}")
 	end
 
 	def remove_containers(containers)

@@ -35,17 +35,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
   end
 
-  config.vm.define "web2" do |web2|
-    web2.vm.provider "docker" do |d|
-      d.image = "pjcoole/railsgoat"
-      d.name = "web2"
-      d.link("db:dockerdb")
-      d.expose = [3000]
-      d.env = {VIRTUAL_HOST: "railsgoat.dev"}
-      d.vagrant_vagrantfile = "./Vagrantfile.proxy"
-    end
-  end
-
   config.vm.define "es" do |es|
     es.vm.provider "docker" do |d|
       d.image = "dockerfile/elasticsearch"

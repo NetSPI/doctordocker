@@ -1,0 +1,16 @@
+# pack-refs with: peeled fully-peeled 
+31fc083768019e6eb84851fa1b08f69d3940bf9c refs/heads/YAML.parse
+01e1abd96ce90cadd33ab75fbdfb432f9a2b8fdf refs/heads/database_timestamp
+72591639efb4c3834cf8234583b253a48f94d344 refs/heads/gut_vendored_db
+640b4256c50b1df71e4e581cd074dcccd8caf7e0 refs/heads/json
+9f116f2e5c2687abb536d3a2caa1db7594205db7 refs/heads/master
+99f275ffe4d2594b8fe2982258d5ec81cbbe1d9b refs/tags/v0.1.0
+^f3c207d048131be273ea0be88d89c67bbd9761d1
+02d4e8597e06cb546751ce509951ef007941f2a4 refs/tags/v0.1.1
+^f6e2e4a79e1fcd2d22e0cb5803ab5e2804e99d0c
+9ec18afe4730d772ce4546e30c9d96ab47256fbd refs/tags/v0.1.2
+^47daa39600b3f17f2c113de99fb131b2d773a267
+a18f21b6aeaf389ad55703eb3550358d9c2de7a9 refs/tags/v0.2.0
+^8136de775c033729652ccb7deb6667fed8e58bff
+5ca42678e19e20b845208e5f66c4d0322a49c57e refs/tags/v0.3.0
+^5bcfcf37d4559ea1438aca165a93f8ef9af1079f

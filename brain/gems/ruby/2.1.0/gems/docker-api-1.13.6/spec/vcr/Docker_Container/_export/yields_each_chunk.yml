@@ -1,0 +1,105 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: unix:///var/run/docker.sock/v1.12/containers/create
+    body:
+      encoding: UTF-8
+      string: '{"Cmd":["rm","-rf","/","--no-preserve-root"],"Image":"base"}'
+    headers:
+      User-Agent:
+      - Swipely/Docker-API 1.11.2
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 201
+      message: 
+    headers:
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 26 Jun 2014 19:43:43 GMT
+      Content-Length:
+      - '90'
+      Connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: |
+        {"Id":"ac19ec0a08d3beb57e4eff6e978a6bea402ea2e6cdfd06dd2d8826e24fc1bc22","Warnings":null}
+    http_version: 
+  recorded_at: Thu, 26 Jun 2014 19:43:43 GMT
+- request:
+    method: post
+    uri: unix:///var/run/docker.sock/v1.12/containers/ac19ec0a08d3beb57e4eff6e978a6bea402ea2e6cdfd06dd2d8826e24fc1bc22/start
+    body:
+      encoding: UTF-8
+      string: '{}'
+    headers:
+      User-Agent:
+      - Swipely/Docker-API 1.11.2
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 204
+      message: 
+    headers:
+      Date:
+      - Thu, 26 Jun 2014 19:43:43 GMT
+      Connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Thu, 26 Jun 2014 19:43:43 GMT
+- request:
+    method: get
+    uri: unix:///var/run/docker.sock/v1.12/containers/ac19ec0a08d3beb57e4eff6e978a6bea402ea2e6cdfd06dd2d8826e24fc1bc22/export
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Swipely/Docker-API 1.11.2
+      Content-Type:
+      - text/plain
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Date:
+      - Thu, 26 Jun 2014 19:43:43 GMT
+      Content-Type:
+      - application/octet-stream
+      Connection:
+      - close
+      Transfer-Encoding:
+      - ''
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        Li8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAADAwNDA3NTUAMDAwMDAwMAAwMDAwMDAwADAwMDAwMDAwMDAw
+        ADEyMzUzMDczNzU2ADAwNzQyMAAgNQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB1c3RhcgAwMAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAwMDAwMDAwADAwMDAwMDAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAuZG9ja2VyZW52AAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMDEwMDc1NQAwMDAwMDAwADAw
+        MDAwMDAAMDAwMDAwMDAwMDAAMTIzNTMwNzM3NTYAMDExMjMyACAwAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAHVzdGFyADAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+    http_version: 
+  recorded_at: Thu, 26 Jun 2014 19:43:43 GMT
+recorded_with: VCR 2.9.2
