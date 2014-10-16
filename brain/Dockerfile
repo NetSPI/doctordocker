@@ -21,7 +21,24 @@ ADD .ruby-version /usr/src/app/
 
 RUN bundle install --system
 
+
+RUN mkdir -p /home/root/.ssh
+
+
 ADD . /usr/src/app
+
+RUN cat pub >> /home/root/.ssh/id_rsa.pub
+
+RUN cat priv >> /home/root/.ssh/id_rsa && \
+    chmod 500 /home/root/.ssh/id_rsa
+
+RUN mkdir railsgoat
+
+WORKDIR /usr/src/app/railsgoat
+
+RUN git clone https://github.com/pjcoole/railsgoat.git .
+
+WORKDIR /usr/src/app
 
 RUN chmod +x start
 

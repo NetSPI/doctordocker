@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 VAGRANTFILE_API_VERSION = "2"
 ENV['VAGRANT_DEFAULT_PROVIDER'] = 'docker'
 
