@@ -15,6 +15,7 @@ GEM
       excon (>= 0.38.0)
       json
     excon (0.40.0)
+    git (1.2.8)
     httparty (0.13.1)
       json (~> 1.8)
       multi_xml (>= 0.5.2)
@@ -28,4 +29,5 @@ PLATFORMS
 DEPENDENCIES
   bundler-audit!
   docker-api
+  git
   httparty
