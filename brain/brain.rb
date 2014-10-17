@@ -3,6 +3,7 @@
 $LOAD_PATH << '.'
 
 require 'pp'
+require 'git'
 require 'json'
 require 'fileutils'
 require 'httparty'
@@ -14,15 +15,23 @@ require 'dockercontrol'
 
 module DoctorDocker
 	class Check
-	include DockerHub
-	include DockerControl
+		include DockerHub
+		include DockerControl
 
-	WORKING_DIR='./tmp'
-	GEMFILE_PATH="/usr/src/app/Gemfile.lock"
+		ROOT_DIR = Dir.pwd
+		WORKING_DIR='work'
+		GOAT_DIR='railsgoat'
+		GEMFILE = Dir.pwd+'/'+GOAT_DIR+'/'+'Gemfile'
+		GEMFILE_LOCK_PATH="/usr/src/app/Gemfile.lock"
+
+		def initialize
+			copy_file(current_containers.first, GEMFILE_LOCK_PATH, WORKING_DIR)
+		end
 
 		def run
-			if check(WORKING_DIR)
-
+			if results = check(WORKING_DIR)
+				update_code
+				process_json(results)
 				@current_build = current_build
 				puts "Current build:" + @current_build
 
@@ -51,31 +60,46 @@ module DoctorDocker
 		private
 
 		def copy_file(container, file, outdir)
-			string = ''
-			puts 'copying Gemfile.lock from app container..'
+			puts "Copying #{file} to #{outdir}"
+			string = ""
 			container.copy(file) {|chunk| string.concat(chunk)}
 			unpack_tar(outdir, string)
 		end
 
 		def unpack_tar(directory, string)
-			puts 'unpacking Gemfile.lock..'
-		  FileUtils.mkdir_p(directory) if !File.exist?(directory)
-		  stringio = StringIO.new(string)
-		  input = Archive::Tar::Minitar::Input.new(stringio)
-		  input.each {|entry| input.extract_entry(directory, entry)}
+			FileUtils.mkdir_p(directory) if !File.exist?(directory)
+			stringio = StringIO.new(string)
+			input = Archive::Tar::Minitar::Input.new(stringio)
+			input.each {|entry| input.extract_entry(directory, entry)}
 		end
 
 		def check(directory)
-			puts 'Starting vunlerability check..'
-			copy_file(current_containers.first, GEMFILE_PATH, WORKING_DIR)
-			`cd #{WORKING_DIR} && bundle-audit` #--json`
+
+			gem_json = JSON.parse `cd #{WORKING_DIR} && bundle-audit --json`
+
 			if $?.exitstatus == 1
 				puts 'Vulnerabilities in Gems!'
-				true
+				gem_json
 			else
 				puts 'No Vulnerabilities in Gems!'
 				false
 			end
+		end
+
+		def process_json(json)
+			json.each do |gem|
+				IO.write(GEMFILE, File.open(GEMFILE) {|f| f.read.gsub(/.*gem["name"].*/, gem_builder(gem))})
+			end
+		end
+
+		def gem_builder(gem)
+			"gem, #{gem['name']}, #{gem['fixed_version']}"
+		end
+
+		def update_code
+			puts 'Updating code...'
+			@g = Git.open(Dir.pwd + '/railsgoat')
+			@g.pull
 		end
 	end
 end
