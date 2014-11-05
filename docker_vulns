@@ -1,0 +1,49 @@
+Today, we have released Docker 1.3 and boot2docker 1.3. This release includes important security fixes. It is especially critical that users of boot2docker upgrade immediately in order to prevent possible remote-code-execution attacks triggered by rogue web content.
+
+Docker 1.3 and boot2docker 1.3 are available immediately for all supported platforms:
+ https://docs.docker.com/installation/
+
+
+CVE descriptions:
+================================================================
+[CVE-2014-5280] Cross-site request forgery attack possible against Docker daemon
+================================================================
+Importance: Critical
+Affects: boot2docker 1.2 and lower
+
+Description:
+
+It has been discovered that Docker daemons enabling TCP connections without TLS authentication are vulnerable to CSRF attacks by local web browsers. The Docker API exposes root-level mechanisms to users, allowing remote root code execution. The TCP feature is typically not enabled by default; However, systems utilizing boot2docker on MacOS or Windows are vulnerable by default.
+Docker 1.3  and boot2docker 1.3 have been released to fix this issue. The boot2docker application will now  enable TLS authentication by default. Users of boot2docker are advised to upgrade.
+Discovered by Johannes ‘fish' Ziemke of Docker, Inc.
+
+
+================================================================
+[CVE-2014-5279] boot2docker allows privilege escalation from children containers
+================================================================
+Importance: Critical
+Affects: boot2docker 1.2 and lower
+
+Description:
+
+It has been discovered that the Docker daemon managed by boot2docker, by default, by enabling TCP connections without authentication or firewall, facilitates attack by children containers. The Docker API exposes root-level mechanisms to users, allowing remote root code execution.
+
+Docker 1.3 and boot2docker 1.3 have been released to fix this issue. The boot2docker application will now  enable TLS authentication by default. Users of boot2docker are advised to upgrade.
+
+
+================================================================
+[CVE-2014-5282] Tagging image to ID can redirect images on subsequent pulls
+==============================================================
+
+Importance: Medium
+Affects: Docker 1.2 and lower
+Description:
+
+It has been discovered that users of the Docker Remote API and CLI could cause one image repository, upon pull, to redirect to the content of another image. This is vulnerability affects all versions of Docker up to, but excluding version 1.3.
+The primary vector for an attack is by loading of untrusted images via ‘docker load’. Images downloaded from DockerHub or private registries cannot exploit this vulnerability.
+It is recommended that users upgrade to Docker engine 1.3.
+Users of older releases of docker are advised not to load untrusted images via ‘docker load’. Vendors supporting older releases of Docker should assure they do not allow untrusted tenants to provide images for import with ‘docker load’, or tag images to arbitrary names equal to 64-characters containing characters within the range of [0-9a-f].
+Discovered by Eric Windisch of Docker, Inc.
+
+
+================================================================

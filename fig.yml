@@ -1,0 +1,62 @@
+nginxproxy:
+  image: pjcoole/nginx:auto
+  ports:
+    - "8080:80"
+  volumes:
+    - /var/run/docker.sock:/tmp/docker.sock
+
+db:
+  image: mysql
+  expose:
+    - "3306"
+  environment:
+    MYSQL_USER: root
+    MYSQL_PASS: docker
+    MYSQL_ROOT_PASSWORD: docker
+
+web1:
+  image: pjcoole/railsgoat
+  expose:
+    - "3000"
+  links:
+    - db:dockerdb
+  environment:
+    VIRTUAL_HOST: railsgoat.dev
+
+es:
+  image: dockerfile/elasticsearch
+  expose:
+    - "9200:9300"
+  ports:
+    - "9200:9200"
+    - "9300:9300"
+
+
+logstash:
+  image: digitalwonderland/logstash
+  expose:
+    - "514, 5043"
+  ports:
+    - "514:514"
+    - "5043:5043"
+  links:
+    - es:elasticsearch
+
+kibana:
+  image: pjcoole/kibana
+  environment:
+    VIRTUAL_HOST: kibana.dev
+    VIRTUAL_PORT: 80
+    HOST_IP_ADDR: kibana.dev
+
+lsForwarder:
+  image: digitalwonderland/logstash-forwarder
+  environment:
+    LOGSTASH_SERVER: 33.33.33.60:5043
+  links:
+    - logstash:logstash
+  volumes:
+    - /var/lib/docker:/var/lib/docker:ro
+  volumes_from:
+    - logstash
+  
